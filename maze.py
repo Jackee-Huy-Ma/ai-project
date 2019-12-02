@@ -293,6 +293,20 @@ class Move(State):
             AI.state = AiAction.REST
             return Rest()
 
+#Class to represent AI Goals.
+# Contains a Map (String, int)
+# Key will be our Enum used to represent states or Goals.
+# In theory check this map for which has a higher value then set ai State.
+
+class Goals:
+    def __init__():
+        goal_dict = dict()
+    
+    def setGoal(key, value):
+        if key not in self.goal_dict:
+            self.goal_dict.setdefault(key, 0)
+        self.goal_dict[key] = value
+
 def goalOrientedBehavior(ai):
     #Goals are either sleep, runtowardgoal, runtowardsPlayer.
     ai.currentState = Move() / Rest()
@@ -327,6 +341,7 @@ def main():
 
     #To-do - reverse
     while grid.player != grid.goal:
+        print(f"Name:{AiAction.REST.name}")
         print(f"AI Energy:{grid.myAI.energy}")
         grid.myAI.StateMachine.currentState = grid.myAI.StateMachine.currentState.run(grid.myAI)
         #print(len(grid.myNodes[grid.player[0]][grid.player[1]].neighbors))

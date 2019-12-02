@@ -24,18 +24,27 @@ class RPS:
         maximum = max(self.R, self.P, self.S)
         # if everything is equal.
         if(maximum == self.R and maximum == self.P and maximum == self.S):
-            return "rps"
+            choice = random.randint(0,2)
+            move = ""
+            if(choice == 0):
+                move = "r"
+            elif(choice == 1):
+                move = "p"
+            elif(choice == 2):
+                move = "s"
+
+            return move
         
         #TO DO for case of R == P and not S 
         if(maximum == self.R and maximum == self.P and maximum != self.S):
-            return "rp"
+            return "r" if random.randint(0,1) == 1 else "p"
         
         if(maximum == self.R and maximum == self.S and maximum != self.P):
-            return "sr"
-        
-        if(maximum != self.R and maximum == self.P and maximum == self.S):
-            return "ps"
+            return "s" if random.randint(0,1) == 1 else "r"
 
+        if(maximum != self.R and maximum == self.P and maximum == self.S):
+            return "p" if random.randint(0,1) == 1 else "s"
+        
         if(maximum == self.R):
             return "r"
         if(maximum == self.P):
