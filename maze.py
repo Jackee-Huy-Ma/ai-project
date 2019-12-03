@@ -6,33 +6,6 @@ import subprocess
 import platform
 import time
 
-#   Class State used to represent AI actions
-# Will be used for decision making via StateMachines
-class State:
-    def __init__(self):
-        self.action = None
-    def __init__(self, action):
-        self.action = action
-    
-    def run(self):
-        assert 0, "Error, run not implemented"
-    
-    def next(self, input):
-        assert 0, "Error, next not implemented"
-
-#Class StateMachine
-# Used to represent a State Machine
-# Will be used to run different types of states
-# In this case only two states exists.
-# RestState, MoveState
-
-class StateMachine:
-    def __init__(self, initialState):
-        self.currentState = initialState
-    
-    def run(self):
-        self.currentState = self.currentState.run(ai)
-
 class Node:
     def __init__(self, i, j):
         self.i = i
@@ -255,61 +228,9 @@ def calculateFn(node, start, end):
     node.h = abs((node.i - end[0]) + (node.j - end[1]))
     node.f = node.g + node.h
 
-# Basic Enum to represent action
-# Will be used with States and StateMachines
-class AiAction(enum.Enum):
-    REST = 0
-    MOVE = 1
-
 class AI:
     def __init__(self, position):
-        self.energy = 0
         self.position = position
-        self.state = AiAction.REST
-        self.StateMachine = StateMachine(Rest())
-
-class Rest(State):
-    def __init__(self):
-        self.action = None
-
-    def run(self, AI):
-        if AI.state == AiAction.REST and AI.energy < 2:
-            AI.energy += 1
-            return self
-        else:
-            AI.energy += 1
-            AI.state = AiAction.MOVE
-            return Move()
-
-class Move(State):
-    def __init__(self):
-        self.action = None
-
-    def run(self, AI):
-        if AI.state == AiAction.MOVE and AI.energy >= 3:
-            AI.energy = 0
-            return self
-        else:
-            AI.state = AiAction.REST
-            return Rest()
-
-#Class to represent AI Goals.
-# Contains a Map (String, int)
-# Key will be our Enum used to represent states or Goals.
-# In theory check this map for which has a higher value then set ai State.
-
-class Goals:
-    def __init__():
-        goal_dict = dict()
-    
-    def setGoal(key, value):
-        if key not in self.goal_dict:
-            self.goal_dict.setdefault(key, 0)
-        self.goal_dict[key] = value
-
-def goalOrientedBehavior(ai):
-    #Goals are either sleep, runtowardgoal, runtowardsPlayer.
-    ai.currentState = Move() / Rest()
 
 def main():
     grid = MapGrid(10, 10)
@@ -341,9 +262,6 @@ def main():
 
     #To-do - reverse
     while grid.player != grid.goal:
-        print(f"Name:{AiAction.REST.name}")
-        print(f"AI Energy:{grid.myAI.energy}")
-        grid.myAI.StateMachine.currentState = grid.myAI.StateMachine.currentState.run(grid.myAI)
         #print(len(grid.myNodes[grid.player[0]][grid.player[1]].neighbors))
         drawGrid(grid)
         direction = input("Which direction? (r,l,u,d)")

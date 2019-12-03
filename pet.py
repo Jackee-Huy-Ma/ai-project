@@ -105,7 +105,7 @@ class AiPet:
 
     def chooseState(self):
         tempAction = self.aiActions.masterActionList[0]
-        minDiscontentment = -1
+        minDiscontentment = 90
         tempTieList = []
         for i in range(len(self.aiActions.masterActionList)):
             actualDiscontentment = 0
@@ -117,7 +117,7 @@ class AiPet:
             if(minDiscontentment == actualDiscontentment):
                 tempTieList.append(self.aiActions.masterActionList[i])
 
-            if(minDiscontentment < actualDiscontentment):
+            if(minDiscontentment > actualDiscontentment):
                 minDiscontentment = actualDiscontentment
                 tempAction = self.aiActions.masterActionList[i]
             #print(f"{self.aiActions.masterActionList[i][len(self.aiActions.masterActionList[i]) - 1]}:", end='')
@@ -125,7 +125,7 @@ class AiPet:
         if(len(tempTieList) > 1):
             tempAction = tempTieList[randint(0, len(tempTieList) - 1)]
 
-        print(f"Greatest Discontentment:{minDiscontentment} caused by Action:{tempAction[len(tempAction) - 1]}")
+        print(f"Minimum Discontentment:{minDiscontentment} caused by Action:{tempAction[len(tempAction) - 1]}")
         
         for i in range(len(tempAction) - 1):
             newGoalValue = self.Goals.goal_dict.get(tempAction[i][0]) + tempAction[i][1]
@@ -148,7 +148,7 @@ class AiPet:
                 #print(f"Maximum:{maximum} key:{key}")
                 tempkeyTie.append(key)
         
-        if(maximum >= 2):
+        if(maximum >= 3):
            for i in range(len(tempkeyTie)):
                self.Goals.goal_dict[tempkeyTie[i]] = 1
 
