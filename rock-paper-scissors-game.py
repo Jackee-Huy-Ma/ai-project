@@ -1,5 +1,4 @@
 import random
-import torch
 #Class used for ngrams. Basically a class representing a tripple
 class RPS:
     def __init__(self,R, P, S):
