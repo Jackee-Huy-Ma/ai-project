@@ -173,27 +173,16 @@ def aStar(node, start, end):
     closeQ = PriorityQueue()
     a = set()
     calculateFn(node, start, end)
-
-    #print(f"Node:[{node.i}][{node.j}] added to PriorityQueue!")
     openQ.add(node)
     a.add((node.i, node.j))
     while openQ:
-        # Returns first node. Assumes first node fn is smallest.
         q = openQ.pop()
-        #print(f"Node:[{q.i}][{q.j}] pop from PriorityQueue!")
-        #minNode = q.neighbors[0]
         minNode = q.neighbors[0]
-        #print(f"Set first neighbor as minNode. Node[{minNode.i}][{minNode.j}]")
-       
-        # Loop through neighbors. Note Wall nodes are removed and not checked.
-        #print(f"length:{len(q.neighbors)}")
-        #print("Start Looping through Q neighbours")
         for i in range(len(q.neighbors)):
-            # Checks if node is equal to end goal
-            #print(f"i:{i}")
-            #print(f"In While Loop length:{len(q.neighbors)}")
             if(q.neighbors[i].i == end[0] and q.neighbors[i].j == end[1]):
                 closeQ.add(q)
+                closeQ.add(q.neighbors[i])
+                q.neighbors[i].parent = q
                 PathPriorityQueue = PriorityQueue()
                 path = set()
                 parentA = closeQ.pq[len(closeQ.pq) - 1]
@@ -214,11 +203,7 @@ def aStar(node, start, end):
                     minNode.parent = q
                     openQ.add(minNode)
                     a.add((minNode.i, minNode.j))
-
-                    
-        
         closeQ.add(q)
-        #print(f"position: [{q.i}][{q.j}]")
     
     return
 
@@ -272,6 +257,9 @@ def main():
         else:
             grid.myAI.position = tempNode
         clear()
+        if(grid.myAI.position == grid.goal):
+            print("You Lose!")
+            break
     print("End")
 
 if __name__ == '__main__':

@@ -76,40 +76,30 @@ openingMovesString = openingMoves(openingMovesString)
 def ngrams(userMoves):
     if(len(userMoves) <= 2):
         return openingMovesString[turns]
-        #print(len(userMoves))
-        
     
     bigram = "" + userMoves[turns - 2] + userMoves[turns - 1]; 
     userMoves = userMoves.lower()
     index = 0
     needle = 0
-    #print(f"bigrams:{bigram}")
+
     while(needle != 1):
-        #print(f"userMoves: {userMoves}")
-        #print(f"bigrams: {bigram}")
         needle = userMoves.find(bigram, index)
         index = needle + len(bigram)
         
         if((bigram not in userDataMap)):
             userDataMap.setdefault(bigram,RPS(0,0,0))
-            
         if(needle == -1):
             break
-
         if(index >= len(userMoves) - 1):
             break
-
         if(userMoves[index] == ' '):
             continue
-        
         if(userMoves[index] == 'r' or userMoves[index] == 'p' or userMoves[index] == 's'):
-            userDataMap[bigram].add(userMoves[index])
-    
-    #print(f"AI Move:{userDataMap[bigram].moves()}")
+            userDataMap[bigram].add(userMoves[index])    
     return userDataMap[bigram].moves()
 #while(gameState):
 while(True):
-    #print("Enter Move: r or p or s")
+    print("Enter Move: r or p or s")
     userInput = input()
     userMoveString += userInput
     #print(f"UserMoves:{userMoveString}")

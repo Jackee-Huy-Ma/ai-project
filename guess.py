@@ -1,13 +1,13 @@
 import random
 import string
 
-target = "Hello"
+target = "artificial intelligence"
 userTries = 0
 aiTries = 0
 userScore = 0
 aiScore = 0
 userAnswer = ""
-def generate_word(length = 5):
+def generate_word(length = len(target)):
     return [random.choice(string.printable) for _ in range(length)]
 
 def score(word):
@@ -30,7 +30,7 @@ def ai_change(word):
 
 print("Guess Word Game!")
 
-while(userAnswer != "hello"):
+while(userAnswer != target):
     userAnswer = input()
     userTries += 1
     userScore = score(userAnswer)
