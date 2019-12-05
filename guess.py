@@ -1,6 +1,10 @@
 import random
 import string
 
+#https://www.gkbrk.com/wiki/hill_climbing/
+#For Hill climbing please go to this person's website
+#Contains an excellent tutorial
+
 target = "artificial intelligence"
 userTries = 0
 aiTries = 0
